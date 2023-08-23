@@ -1,32 +1,30 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Live Streaming App</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <div id="video-container">
-    <video id="video" autoplay></video>
+  <div id="opening-container">
+    <h1>Welcome to the Live Streaming App</h1>
+    <button id="viewer-button">View</button>
+    <button id="host-button">Host</button>
   </div>
-  <button id="mute-button">Mute</button>
-  <button id="unmute-button">Unmute</button>
-  <button id="fullscreen-button">Fullscreen</button>
-  <button id="start-stream-button">Start Stream</button>
-  <button id="stop-stream-button">Stop Stream</button>
-  <button id="record-button">Start Recording</button>
-  <button id="stop-record-button">Stop Recording</button>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="client.js"></script>
-
-  <div id="choose-viewer">
-    <button id="viewer-button">Join as Viewer</button>
+  <div id="streaming-container" style="display: none;">
+    <h1>Live Streaming as Host</h1>
+    <button id="start-stream-button">Start Stream</button>
+    <button id="stop-stream-button">Stop Stream</button>
+    <video id="host-video" autoplay></video>
   </div>
-
-  <div id="viewer-container">
+  <div id="viewer-container" style="display: none;">
+    <h1>Live Stream Viewer</h1>
     <video id="viewer-video" autoplay></video>
   </div>
-
+  <div id="choose-viewer" style="display: none;">
+    <button id="join-viewer-button">Join as Viewer</button>
+  </div>
+  <script src="client.js"></script>
 </body>
-
 </html>

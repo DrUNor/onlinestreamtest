@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #opening-container,
+  #streaming-container,
+  #viewer-container,
+  #choose-viewer {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  #streaming-container,
+  #viewer-container,
+  #choose-viewer {
+    display: none;
+  }
+  
+  video {
+    max-width: 100%;
+  }
