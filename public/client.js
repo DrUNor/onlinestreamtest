@@ -12,6 +12,7 @@ const viewerVideo = document.getElementById('viewer-video');
 const muteButton = document.getElementById('mute-button');
 const unmuteButton = document.getElementById('unmute-button');
 
+
 let mediaStream = null;
 let isMuted = false;
 
@@ -36,6 +37,28 @@ joinViewerButton.addEventListener('click', () => {
   // Call the function to join as a viewer
   joinViewer();
 });
+
+function joinViewer() {
+  try {
+    mediaStream = new MediaStream();
+    const viewerStream = viewerVideo.captureStream();
+    mediaStream.addTrack(viewerStream.getAudioTracks()[0]);
+    // Call the function to connect to the host's stream
+    connectToHostStream();
+  } catch (error) {
+    console.error('Error joining as viewer:', error);
+  }
+}
+
+function connectToHostStream() {
+  const viewerSocket = io();
+
+  viewerSocket.on('stream', (data) => {
+    const blob = new Blob([data], { type: 'video/webm' });
+    const url = URL.createObjectURL(blob);
+    viewerVideo.src = url;
+  });
+}
 
 // Handle start stream button click
 startStreamButton.addEventListener('click', () => {
