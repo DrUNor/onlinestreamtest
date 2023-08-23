@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Live Streaming App</title>
 </head>
+
 <body>
   <div id="video-container">
     <video id="video" autoplay></video>
@@ -17,13 +19,14 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="client.js"></script>
 
-  <div id="viewer-container">
-    <video id="viewer-video" autoplay></video>
-  </div>
-
   <div id="choose-viewer">
     <button id="viewer-button">Join as Viewer</button>
   </div>
 
+  <div id="viewer-container">
+    <video id="viewer-video" autoplay></video>
+  </div>
+
 </body>
+
 </html>
