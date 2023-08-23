@@ -9,6 +9,11 @@ const startStreamButton = document.getElementById('start-stream-button');
 const stopStreamButton = document.getElementById('stop-stream-button');
 const hostVideo = document.getElementById('host-video');
 const viewerVideo = document.getElementById('viewer-video');
+const muteButton = document.getElementById('mute-button');
+const unmuteButton = document.getElementById('unmute-button');
+
+let mediaStream = null;
+let isMuted = false;
 
 // Handle viewer button click
 viewerButton.addEventListener('click', () => {
@@ -44,6 +49,41 @@ startStreamButton.addEventListener('click', () => {
 stopStreamButton.addEventListener('click', () => {
   startStreamButton.disabled = false;
   stopStreamButton.disabled = true;
+  muteButton.style.display = 'none';
+  unmuteButton.style.display = 'none';
   // Call the function to stop the stream as a host
   stopStream();
 });
+
+// Handle mute button click
+muteButton.addEventListener('click', () => {
+  mediaStream.getAudioTracks()[0].enabled = false;
+  muteButton.style.display = 'none';
+  unmuteButton.style.display = 'inline-block';
+});
+
+// Handle unmute button click
+unmuteButton.addEventListener('click', () => {
+  mediaStream.getAudioTracks()[0].enabled = true;
+  unmuteButton.style.display = 'none';
+  muteButton.style.display = 'inline-block';
+});
+
+async function startStream() {
+  try {
+    mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    hostVideo.srcObject = mediaStream;
+    hostVideo.play();
+  } catch (error) {
+    console.error('Error starting stream:', error);
+  }
+}
+
+// Stop stream function
+function stopStream() {
+  if (mediaStream) {
+    mediaStream.getTracks().forEach((track) => track.stop());
+    mediaStream = null;
+    hostVideo.srcObject = null;
+  }
+}
