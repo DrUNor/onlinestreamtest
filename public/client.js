@@ -7,6 +7,7 @@ const startStreamButton = document.getElementById('start-stream-button');
 const stopStreamButton = document.getElementById('stop-stream-button');
 const recordButton = document.getElementById('record-button');
 const stopRecordButton = document.getElementById('stop-record-button');
+const viewerVideo = document.getElementById('viewer-video');
 const socket = io();
 
 let mediaRecorder;
@@ -58,6 +59,20 @@ socket.on('stream', (data) => {
   const blob = new Blob([data], { type: 'video/webm' });
   const url = URL.createObjectURL(blob);
   video.src = url;
+});
+
+socket.on('startStream', () => {
+  console.log('Stream started on another client.');
+});
+
+socket.on('stopStream', () => {
+  console.log('Stream stopped on another client.');
+});
+
+socket.on('stream', (data) => {
+  const blob = new Blob([data], { type: 'video/webm' });
+  const url = URL.createObjectURL(blob);
+  viewerVideo.src = url;
 });
 
 socket.on('startStream', () => {
