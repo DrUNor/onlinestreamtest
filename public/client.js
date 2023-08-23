@@ -72,7 +72,7 @@ socket.on('stopStream', () => {
 
 
 viewerButton.addEventListener('click', () => {
-  viewerButton.disabled = false; // Disable the button to prevent multiple clicks
+  viewerButton.disabled = true; // Disable the button to prevent multiple clicks
   // Send a request to the server to join as a viewer
   socket.emit('joinViewer');
   // Hide the "Join as Viewer" button
