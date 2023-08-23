@@ -72,7 +72,7 @@ socket.on('stopStream', () => {
 
 
 viewerButton.addEventListener('click', () => {
-  viewerButton.disabled = true; // Disable the button to prevent multiple clicks
+  viewerButton.disabled = false; // Disable the button to prevent multiple clicks
   // Send a request to the server to join as a viewer
   socket.emit('joinViewer');
   // Hide the "Join as Viewer" button
@@ -84,4 +84,21 @@ socket.on('streamToViewers', (data) => {
   const url = URL.createObjectURL(blob);
   viewerVideo.src = url;
 });
+
+socket.on('startStream', () => {
+  console.log('Stream started on another client.');
+  // Automatically trigger the video play when the broadcast starts
+  viewerVideo.play();
+});
+
+socket.on('stopStream', () => {
+  console.log('Stream stopped on another client.');
+  // Stop the video playback when the broadcast stops
+  viewerVideo.pause();
+});
+
+
+
+
+
 
