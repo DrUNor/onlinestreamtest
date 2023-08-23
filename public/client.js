@@ -8,6 +8,7 @@ const stopStreamButton = document.getElementById('stop-stream-button');
 const recordButton = document.getElementById('record-button');
 const stopRecordButton = document.getElementById('stop-record-button');
 const viewerVideo = document.getElementById('viewer-video');
+const viewerButton = document.getElementById('viewer-button');
 const socket = io();
 
 let mediaRecorder;
@@ -81,4 +82,18 @@ socket.on('startStream', () => {
 
 socket.on('stopStream', () => {
   console.log('Stream stopped on another client.');
+});
+
+viewerButton.addEventListener('click', () => {
+  viewerButton.disabled = true; // Disable the button to prevent multiple clicks
+  // Send a request to the server to join as a viewer
+  socket.emit('joinViewer');
+  // Hide the "Join as Viewer" button
+  document.getElementById('choose-viewer').style.display = 'none';
+});
+
+socket.on('streamToViewers', (data) => {
+  const blob = new Blob([data], { type: 'video/webm' });
+  const url = URL.createObjectURL(blob);
+  viewerVideo.src = url;
 });

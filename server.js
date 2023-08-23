@@ -24,3 +24,14 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+io.on('connection', (socket) => {
+  console.log('A user connected');
+
+  // Handle joining as a viewer
+  socket.on('joinViewer', () => {
+    // Join the "viewers" room
+    socket.join('viewers');
+  });
+
+});
